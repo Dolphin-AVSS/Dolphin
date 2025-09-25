@@ -1,0 +1,59 @@
+# 🏗️ Architecture
+
+## Overall Pipeline
+
+![Dolphin Architecture](/Dolphin/overall-pipeline.png)
+
+The overall architecture of Dolphin consists of three main components:
+
+### 🎥 Video Encoder
+
+![Video Encoder](/Dolphin/video-ae.png)
+
+Our **DP-LipCoder** (Dual-Path Lightweight Video Encoder):
+
+- **Transforms** lip-motion into audio-aligned discrete semantic tokens
+- **Leverages** vector quantization (VQ) and knowledge distillation from AV-HuBERT
+- **Maps** continuous video streams into discrete semantic tokens highly aligned with audio
+- **Reduces** visual encoder complexity while maintaining representational capacity
+
+### 🔊 Audio Separator
+
+![Separator](/Dolphin/separator.png)
+
+The lightweight encoder–decoder separator features:
+
+- **Global–Local Attention (GLA) Blocks**: Efficiently capture multi-scale dependencies at each layer
+- **Single-Iteration Design**: Retains only one forward pass for computational efficiency
+- **Top-Down Attention Mechanism**: Strengthens focus on target speech
+- **Cross-Modal Alignment**: Enables effective audio-visual integration
+
+### 🧠 Key Components
+
+![GA-MSA](/Dolphin/ga-msa.png)
+
+**Global–Local Attention (GLA) Blocks**
+   - Efficiently capture multi-scale dependencies at each layer
+   - Enable collaborative global and local feature modeling
+   - Mitigate performance loss from single-iteration design
+
+**DP-LipCoder Architecture**
+   - Dual-path design for comprehensive visual feature extraction
+   - Vector quantization for discrete semantic token generation
+   - Knowledge distillation from AV-HuBERT for audio alignment
+
+### 📊 Performance Metrics
+
+Performance metrics on three public AVSS benchmark datasets. Bold indicates best performance.
+
+![Results Table](/Dolphin/results.png)
+
+### Efficiency Analysis
+
+![Efficiency Comparison](/Dolphin/efficiency_comparison.png)
+
+Dolphin achieves:
+- ✅ **Over 50%** fewer parameters
+- ✅ **More than 2.4×** reduction in MACs
+- ✅ **Over 6×** faster GPU inference speed
+- ✅ Superior separation quality across all benchmark datasets
